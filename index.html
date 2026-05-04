@@ -310,20 +310,24 @@
             </p>
 
             <div class="contact-form-wrapper">
-                <form class="contact-form">
+                <form class="contact-form" id="contact-form">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" id="name" required placeholder="John Doe">
+                        <input type="text" id="name" name="from_name" required placeholder="John Doe">
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" required placeholder="john@example.com">
+                        <input type="email" id="email" name="from_email" required placeholder="john@example.com">
                     </div>
                     <div class="form-group">
                         <label for="message">Message</label>
-                        <textarea id="message" rows="5" required placeholder="Hello..."></textarea>
+                        <textarea id="message" name="message" rows="5" required placeholder="Hello..."></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary submit-btn">Send Message</button>
+                    <button type="submit" class="btn btn-primary submit-btn" id="submit-btn">
+                        <span class="btn-text">Send Message</span>
+                        <span class="btn-loading" style="display:none"><i class="fas fa-spinner fa-spin"></i> Sending...</span>
+                    </button>
+                    <p class="form-status" id="form-status"></p>
                 </form>
             </div>
         </section>
@@ -344,6 +348,7 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="js/main.js"></script>
 </body>
 

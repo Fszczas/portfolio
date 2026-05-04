@@ -1,3 +1,10 @@
+// EmailJS — replace these with your actual IDs from emailjs.com
+const EMAILJS_PUBLIC_KEY  = '2EOOMFATJI6h00W3O';
+const EMAILJS_SERVICE_ID  = 'service_926cfbf';
+const EMAILJS_TEMPLATE_ID = 'template_n1n50pk';
+
+emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
 document.addEventListener('DOMContentLoaded', () => {
     /* --- 1. Navbar Scroll Effect --- */
     const navbar = document.querySelector('.navbar');
@@ -128,7 +135,38 @@ document.addEventListener('DOMContentLoaded', () => {
         dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
     });
 
-    /* --- 6. Mobile Menu Toggle --- */
+    /* --- 6. Contact Form --- */
+    const contactForm = document.getElementById('contact-form');
+    const submitBtn   = document.getElementById('submit-btn');
+    const formStatus  = document.getElementById('form-status');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            submitBtn.querySelector('.btn-text').style.display    = 'none';
+            submitBtn.querySelector('.btn-loading').style.display = 'inline';
+            submitBtn.disabled = true;
+            formStatus.textContent = '';
+            formStatus.className = 'form-status';
+
+            try {
+                await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, contactForm);
+                formStatus.textContent = 'Message sent! I\'ll get back to you soon.';
+                formStatus.classList.add('form-status--success');
+                contactForm.reset();
+            } catch {
+                formStatus.textContent = 'Something went wrong. Please try again.';
+                formStatus.classList.add('form-status--error');
+            } finally {
+                submitBtn.querySelector('.btn-text').style.display    = 'inline';
+                submitBtn.querySelector('.btn-loading').style.display = 'none';
+                submitBtn.disabled = false;
+            }
+        });
+    }
+
+    /* --- 7. Mobile Menu Toggle --- */
     const mobileBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
 

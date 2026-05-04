@@ -962,6 +962,27 @@ main {
     margin-top: 10px;
 }
 
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.form-status {
+    margin-top: 14px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    text-align: center;
+    min-height: 20px;
+}
+
+.form-status--success {
+    color: #4ade80;
+}
+
+.form-status--error {
+    color: #f87171;
+}
+
 /* Footer */
 footer {
     padding: 50px 0;
