@@ -245,6 +245,21 @@ h3 {
     z-index: calc(var(--z-nav) + 1);
 }
 
+.nav-links.mobile-open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    left: 0;
+    background: rgba(30, 30, 30, 0.97);
+    backdrop-filter: blur(10px);
+    padding: 20px 40px;
+    border-top: 1px solid rgba(247, 223, 30, 0.2);
+    border-bottom: 1px solid rgba(247, 223, 30, 0.2);
+    gap: 8px;
+}
+
 /* Main Layout */
 main {
     padding: 0 150px;
@@ -447,6 +462,129 @@ main {
 .image-wrapper:hover .avatar-placeholder {
     mix-blend-mode: normal;
     filter: grayscale(0) contrast(1);
+}
+
+/* Experience Section */
+.experience-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.experience-item {
+    background: var(--bg-secondary);
+    border: 1px solid var(--bg-tertiary);
+    border-radius: var(--border-radius);
+    padding: 30px 35px;
+    transition: var(--transition);
+}
+
+.experience-item:hover {
+    border-color: rgba(247, 223, 30, 0.3);
+    transform: translateY(-3px);
+}
+
+.exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.exp-title {
+    font-size: clamp(18px, 3vw, 22px);
+    margin: 0 0 6px;
+}
+
+.exp-at {
+    color: var(--accent-neon-blue);
+    font-family: var(--font-mono);
+}
+
+.exp-company {
+    color: var(--accent-neon-blue);
+}
+
+.exp-period {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.exp-dot {
+    font-size: 8px;
+    color: var(--accent-neon-blue);
+    animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+.exp-link {
+    font-size: 16px;
+    color: var(--text-secondary);
+    padding: 4px 8px;
+    flex-shrink: 0;
+}
+
+.exp-link:hover {
+    color: var(--accent-neon-blue);
+    transform: translateY(-2px);
+}
+
+.exp-desc {
+    font-size: 15px;
+    margin-bottom: 18px;
+    line-height: 1.7;
+}
+
+.exp-duties {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.exp-duties li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.exp-duties li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--accent-neon-blue);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.exp-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    border-top: 1px solid var(--bg-tertiary);
+    padding-top: 18px;
+    margin: 0;
+}
+
+.exp-tech li {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent-neon-blue);
+    background: rgba(247, 223, 30, 0.07);
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(247, 223, 30, 0.2);
 }
 
 /* Skills Section */
@@ -657,6 +795,104 @@ main {
     justify-content: flex-start;
 }
 
+/* Image Slider */
+.project-slider {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1920 / 945;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+.slider-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.45s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.slider-slide {
+    min-width: 100%;
+    height: 100%;
+}
+
+.slider-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: var(--border-radius);
+}
+
+.slider-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(247, 223, 30, 0.08);
+    transition: var(--transition);
+    pointer-events: none;
+    border-radius: var(--border-radius);
+}
+
+.project-card:hover .slider-overlay {
+    opacity: 0;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(30, 30, 30, 0.85);
+    border: 1px solid rgba(247, 223, 30, 0.3);
+    color: var(--accent-neon-blue);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 13px;
+    transition: var(--transition);
+    z-index: 3;
+    opacity: 0;
+}
+
+.project-slider:hover .slider-btn {
+    opacity: 1;
+}
+
+.slider-btn:hover {
+    background: rgba(247, 223, 30, 0.15);
+    border-color: var(--accent-neon-blue);
+}
+
+.slider-btn.prev { left: 10px; }
+.slider-btn.next { right: 10px; }
+
+.slider-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 3;
+}
+
+.slider-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.slider-dot.active {
+    background: var(--accent-neon-blue);
+    transform: scale(1.4);
+}
+
 /* Contact Section */
 .contact-section {
     text-align: center;
@@ -796,30 +1032,24 @@ footer {
     .project-card,
     .project-reversed {
         grid-template-columns: 1fr;
+        gap: 24px;
         align-items: flex-start;
     }
 
-    .project-image {
+    .project-image,
+    .project-reversed .project-image {
         grid-column: 1 / -1;
-        opacity: 0.15;
-        height: 100%;
+        grid-row: 1;
+        opacity: 1;
+        height: auto;
     }
 
-    .project-info {
-        grid-column: 1 / -1;
-        padding: 30px;
-        text-align: left;
-    }
-
-    .project-description {
-        background: transparent;
-        box-shadow: none;
-        padding: 0;
-        border: none;
-    }
-
+    .project-info,
     .project-reversed .project-info {
         grid-column: 1 / -1;
+        grid-row: 2;
+        text-align: left;
+        padding: 0;
     }
 
     .project-tech-list,
@@ -827,8 +1057,14 @@ footer {
         justify-content: flex-start;
     }
 
-    .project-tech-list li {
+    .project-tech-list li,
+    .project-reversed .project-tech-list li {
         margin: 0 15px 5px 0;
+    }
+
+    .project-links,
+    .project-reversed .project-links {
+        justify-content: flex-start;
     }
 }
 

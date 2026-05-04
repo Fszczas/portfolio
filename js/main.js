@@ -108,28 +108,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    /* --- 5. Mobile Menu Toggle (Basic logic) --- */
+    /* --- 5. Image Sliders --- */
+    document.querySelectorAll('[data-slider]').forEach(slider => {
+        const track = slider.querySelector('.slider-track');
+        const dots = slider.querySelectorAll('.slider-dot');
+        const prevBtn = slider.querySelector('.slider-btn.prev');
+        const nextBtn = slider.querySelector('.slider-btn.next');
+        const total = dots.length;
+        let current = 0;
+
+        function goTo(index) {
+            current = (index + total) % total;
+            track.style.transform = `translateX(-${current * 100}%)`;
+            dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        }
+
+        prevBtn.addEventListener('click', e => { e.stopPropagation(); goTo(current - 1); });
+        nextBtn.addEventListener('click', e => { e.stopPropagation(); goTo(current + 1); });
+        dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+    });
+
+    /* --- 6. Mobile Menu Toggle --- */
     const mobileBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
 
     if (mobileBtn && navLinks) {
         mobileBtn.addEventListener('click', () => {
-            // For a basic MVP toggle, just alternating display style via inline CSS.
-            // In a more robust solution, toggle a class and use CSS transforms.
-            if (navLinks.style.display === 'flex' || navLinks.style.display === 'block') {
-                navLinks.style.display = 'none';
+            const isOpen = navLinks.classList.toggle('mobile-open');
+            mobileBtn.innerHTML = isOpen
+                ? '<i class="fas fa-times"></i>'
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close menu when a link is clicked
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('mobile-open');
                 mobileBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            } else {
-                navLinks.style.display = 'flex';
-                navLinks.style.flexDirection = 'column';
-                navLinks.style.position = 'absolute';
-                navLinks.style.top = '70px';
-                navLinks.style.right = '0';
-                navLinks.style.background = 'rgba(17, 34, 64, 0.95)';
-                navLinks.style.padding = '20px';
-                navLinks.style.borderRadius = '0 0 0 10px';
-                mobileBtn.innerHTML = '<i class="fas fa-times"></i>';
-            }
+            });
         });
     }
 });
